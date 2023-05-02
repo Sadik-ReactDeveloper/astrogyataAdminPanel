@@ -56,7 +56,7 @@ export class AddBookEvent extends Component {
   onChangeHandler = (event) => {
     this.setState({ selectedFile: event.target.files });
     this.setState({ selectedName: event.target.files.name });
-    console.log(event.target.files);
+    // console.log(event.target.files);
   };
   uploadImageCallBack = (file) => {
     return new Promise((resolve, reject) => {
