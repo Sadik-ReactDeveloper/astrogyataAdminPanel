@@ -9,6 +9,7 @@ import {
   Label,
   Button,
   CustomInput,
+  Table,
 } from "reactstrap";
 import axiosConfig from "../../../../axiosConfig";
 import "react-toastify/dist/ReactToastify.css";
@@ -42,12 +43,16 @@ export class AddBookEvent extends Component {
       productPrice: "",
       productName: "",
       details: "",
-      inputlist: { firstName: "", lastName: "" },
     };
     this.state = {
       pujaN: [],
     };
+    this.state = {
+      inputlist: [{ firstName: "", lastName: "" }],
+      timelist: [{ startTime: "", endTime: "" }],
+    };
   }
+
   onChangeHandler = (event) => {
     this.setState({ selectedFile: event.target.files[0] });
     this.setState({ selectedName: event.target.files[0].name });
@@ -56,7 +61,6 @@ export class AddBookEvent extends Component {
   onChangeHandler = (event) => {
     this.setState({ selectedFile: event.target.files });
     this.setState({ selectedName: event.target.files.name });
-    // console.log(event.target.files);
   };
   uploadImageCallBack = (file) => {
     return new Promise((resolve, reject) => {
@@ -76,28 +80,26 @@ export class AddBookEvent extends Component {
       });
     });
   };
-
-  // handle input change
-  handleInputChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...this.state.inputlist];
-    list[index][name] = value;
-    this.setState.inputlist(list);
+  handleTimeremove = (index) => {
+    const AlltimeList = [...this.state.timelist];
+    AlltimeList.splice(index, 1);
+    this.setState({ timelist: AlltimeList });
   };
-
-  // handle click event of the Remove button
-  handleRemoveClick = (index) => {
+  handleTimeClick = () => {
+    this.setState({
+      timelist: [...this.state.timelist, { startTime: "", endTime: "" }],
+    });
+  };
+  handleremove = (index) => {
     const list = [...this.state.inputlist];
     list.splice(index, 1);
-    this.setState.inputlist(list);
+    this.setState({ inputlist: list });
   };
 
-  // handle click event of the Add button
-  handleAddClick = () => {
-    this.setState.inputlist([
-      ...this.state.inputlist,
-      { firstName: "", lastName: "" },
-    ]);
+  handleClick = () => {
+    this.setState({
+      inputlist: [...this.state.inputlist, { firstName: "", lastName: "" }],
+    });
   };
 
   onEditorStateChange = (editorState) => {
@@ -118,7 +120,7 @@ export class AddBookEvent extends Component {
     axiosConfig
       .get("/admin/admin_poojaList")
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         this.setState({
           pujaN: response.data.data,
         });
@@ -152,17 +154,7 @@ export class AddBookEvent extends Component {
     for (var key of data.keys()) {
       console.log(key);
     }
-    // for (const file of this.state.selectedFile) {
-    // if (this.state.selectedFile !== null) {
-    //   data.append("poojaimg", this.state.selectedFile);
-    // }
-    // }
-    // for (var value of data.values()) {
-    //   console.log(value);
-    // }
-    // for (var key of data.keys()) {
-    //   console.log(key);
-    // }
+
     axiosConfig
       .post(`/admin/admin_Addevent`, data)
       .then((response) => {
@@ -175,6 +167,7 @@ export class AddBookEvent extends Component {
       });
   };
   render() {
+    console.log("first", this.state.inputlist);
     return (
       <div>
         <Breadcrumbs
@@ -247,17 +240,57 @@ export class AddBookEvent extends Component {
                     onChange={this.changeHandler}
                   ></Input>
                 </Col>
-                <Col lg="4" md="6" sm="12" className="mb-2">
-                  <Label>Duration</Label>
-                  <Input
-                    required
-                    type="text"
-                    name="time_slots"
-                    placeholder="Enter Time Slots"
-                    value={this.state.time_slots}
-                    onChange={this.changeHandler}
-                  ></Input>
-                </Col>
+                {this.state.timelist?.map((ele, i) => {
+                  return (
+                    <>
+                      <Col lg="4" md="6" sm="12" className="mb-2">
+                        <Label>Start Time</Label>
+                        <Input
+                          required
+                          type="time"
+                          name="time_slots"
+                          placeholder="Enter Start Time"
+                          value={this.state.time_slots}
+                          onChange={this.changeHandler}
+                        ></Input>
+                      </Col>
+                      <Col lg="4" md="6" sm="12" className="mb-2">
+                        <Label>End Time</Label>
+                        <Input
+                          required
+                          type="time"
+                          name="time_slots"
+                          placeholder="Enter End Time"
+                          value={this.state.time_slots}
+                          onChange={this.changeHandler}
+                        ></Input>
+                      </Col>
+                      <Col lg="2" md="3" sm="12" className="">
+                        {this.state.timelist.length - 1 === i && (
+                          <Button
+                            className="mt-1"
+                            color="primary"
+                            onClick={this.handleTimeClick}
+                          >
+                            Add More
+                          </Button>
+                        )}
+                      </Col>
+                      <Col lg="2" md="3" sm="12" className="">
+                        {this.state.timelist.length - 1 !== i ? (
+                          <Button
+                            color="primary"
+                            className="ml-2"
+                            style={{ height: "40px" }}
+                            onClick={() => this.handleTimeremove(i)}
+                          >
+                            Remove
+                          </Button>
+                        ) : null}
+                      </Col>
+                    </>
+                  );
+                })}
                 <Col lg="4" md="6" sm="12" className="mb-2">
                   <Label>Location</Label>
                   <Input
@@ -270,7 +303,7 @@ export class AddBookEvent extends Component {
                   ></Input>
                 </Col>{" "}
                 <Col lg="4" md="6" sm="12" className="mb-2">
-                  <Label>Current Location</Label>
+                  <Label>Fullfill Location</Label>
                   <Input
                     required
                     type="text"
@@ -281,7 +314,7 @@ export class AddBookEvent extends Component {
                   ></Input>
                 </Col>
                 <Col lg="4" md="6" sm="12" className="mb-2">
-                  <Label>City</Label>
+                  <Label>Puja City</Label>
                   <Input
                     required
                     type="text"
@@ -333,22 +366,70 @@ export class AddBookEvent extends Component {
                     onChange={this.changeHandler}
                   ></Input>
                 </Col>
-                <Col lg="12" md="3" sm="3" className="mb-2">
-                  <Label>Price</Label>
-                  <Input
-                    required
-                    type="text"
-                    name="city"
-                    placeholder="Enter City"
-                    value={this.state.city}
-                    onChange={this.changeHandler}
-                  ></Input>
+                <Col lg="12" md="12">
+                  {this.state.inputlist?.map((e, i) => {
+                    return (
+                      <Row key={i}>
+                        <Col lg="4" className="mb-2">
+                          <CustomInput
+                            type="file"
+                            onChange={this.onChangeHandler}
+                          />
+                        </Col>
+                        <Col lg="4" className="mb-2">
+                          <Input
+                            required
+                            type="text"
+                            name="name"
+                            placeholder="Enter Name"
+                            value={this.state.city}
+                            onChange={this.changeHandler}
+                          ></Input>
+                        </Col>
+                        <Col lg="4" className="mb-2">
+                          <Input
+                            required
+                            type="text"
+                            name="city"
+                            placeholder="Enter Price"
+                            value={this.state.city}
+                            onChange={this.changeHandler}
+                          ></Input>
+                        </Col>
+                        <Col lg="6" className="mb-2">
+                          <Input
+                            required
+                            rows={1}
+                            type="textarea"
+                            name="benefits"
+                            placeholder="Enter benefits"
+                            value={this.state.benefits}
+                            onChange={this.changeHandler}
+                          ></Input>
+                        </Col>
+                        <Col lg="3">
+                          {this.state.inputlist.length - 1 === i && (
+                            <Button color="primary" onClick={this.handleClick}>
+                              Add More
+                            </Button>
+                          )}
+                        </Col>
+                        <Col lg="3">
+                          {this.state.inputlist.length - 1 !== i ? (
+                            <Button
+                              color="primary"
+                              className="ml-2"
+                              style={{ height: "40px" }}
+                              onClick={() => this.handleremove(i)}
+                            >
+                              Remove
+                            </Button>
+                          ) : null}
+                        </Col>
+                      </Row>
+                    );
+                  })}
                 </Col>
-                {this.state.inputlist?.map((x, i) => (
-                  <Col lg="12" md="12" sm="12">
-                    <h2 style={{ backgroundColor: "red" }}>smile</h2>
-                  </Col>
-                ))}
                 <Col lg="12" md="12" sm="12" className="mb-2">
                   <Label>About puja</Label>
                   <br />
@@ -370,36 +451,6 @@ export class AddBookEvent extends Component {
                     }}
                   />
                 </Col>
-                {/* <Col lg="3" md="3" sm="3" className="mb-2">
-                  <Label>Image</Label>
-                  <CustomInput
-                    type="file"
-                    // multiple
-                    onChange={this.onChangeHandler}
-                  />
-                </Col> */}
-                {/* <Col lg="3" md="3" sm="3" className="mb-2">
-                  <Label>ProductName</Label>
-                  <Input
-                    required
-                    type="text"
-                    name="city"
-                    placeholder="Enter City"
-                    value={this.state.city}
-                    onChange={this.changeHandler}
-                  ></Input>
-                </Col>
-                <Col lg="3" md="3" sm="3" className="mb-2">
-                  <Label>Price</Label>
-                  <Input
-                    required
-                    type="text"
-                    name="city"
-                    placeholder="Enter City"
-                    value={this.state.city}
-                    onChange={this.changeHandler}
-                  ></Input>
-                </Col> */}
               </Row>
 
               <Row>

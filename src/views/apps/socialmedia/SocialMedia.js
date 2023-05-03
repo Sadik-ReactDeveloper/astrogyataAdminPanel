@@ -29,6 +29,8 @@ class SocialMedia extends React.Component {
     paginationPageSize: 20,
     currenPageSize: "",
     getPageSize: "",
+    select_sslmedia: "",
+    url: "",
     defaultColDef: {
       sortable: true,
       editable: true,
@@ -56,7 +58,7 @@ class SocialMedia extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.email}</span>
+              <span>{params.data.select_sslmedia}</span>
             </div>
           );
         },
@@ -70,7 +72,7 @@ class SocialMedia extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.email}</span>
+              <span>{params.data.url}</span>
             </div>
           );
         },
@@ -137,33 +139,35 @@ class SocialMedia extends React.Component {
       },
     ],
   };
-  // handle click event of the Add button
-  handleAddClick = () => {
-    // setInputList([...inputList, { firstName: "", lastName: "" }]);
+  handleSelect = (e) => {
+    this.setState({ select_sslmedia: e.target.value });
   };
-  async componentDidMount() {
-    let { id } = this.props.match.params;
-
+  handleAdd = async () => {
+    let payload = {
+      select_sslmedia: this.state.select_sslmedia,
+      url: this.state.url,
+    };
+    await axios.post("http://65.2.148.70:8000/admin/add_SocialMedia", payload);
+    this.getAllData();
+    this.setState({ url: "" });
+  };
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+  getAllData = async () => {
     await axios
-      .get(`http://3.108.185.7:4000/user/view_onecust/${id}`)
+      .get("http://65.2.148.70:8000/admin/get_socalList")
       .then((response) => {
         let rowData = response.data.data;
-        console.log(rowData);
         this.setState({ rowData });
       });
-
-    await axios
-      .get("http://3.108.185.7:4000/admin/allcustomer")
-      .then((response) => {
-        let rowData = response.data.data;
-        console.log(rowData);
-        this.setState({ rowData });
-      });
+  };
+  componentDidMount() {
+    this.getAllData();
   }
 
   async runthisfunction(id) {
-    console.log(id);
-    await axios.get(`http://3.108.185.7:4000/admin/delcustomer/${id}`).then(
+    await axios.get(`http://65.2.148.70:8000/admin/dlt_socailMedia/${id}`).then(
       (response) => {
         console.log(response);
       },
@@ -195,150 +199,151 @@ class SocialMedia extends React.Component {
   };
   render() {
     const { rowData, columnDefs, defaultColDef } = this.state;
-    // const {  } = this.state;
     return (
-      console.log(rowData),
-      (
-        <div>
-          <Breadcrumbs
-            breadCrumbTitle="Social Media "
-            breadCrumbParent="Home"
-            breadCrumbActive="Social Media "
-          />
+      <div>
+        <Breadcrumbs
+          breadCrumbTitle="Social Media "
+          breadCrumbParent="Home"
+          breadCrumbActive="Social Media "
+        />
 
-          <Row className="app-user-list">
-            <Col sm="12"></Col>
-            <Col sm="12">
-              <Card>
-                <Row className="m-2">
-                  <Col>
-                    {/* <h1 sm="6" className="float-left"> */}
-                    <CustomInput
-                      type="select"
-                      name="blogcategory"
-                      value={this.state.blogcategory}
-                      onChange={this.changeHandler}
-                    >
-                      <option>Facebook</option>
-                      <option>Twitter</option>
-                      <option>Instagram</option>
-                      <option>Youtube</option>
-                    </CustomInput>
-                    {/* </h1> */}
-                  </Col>
-                  <Col>
-                    <Input type="text" placeholder="Enter social link" />
-                  </Col>
-                  <Col>
-                    <Route
-                      render={({ history }) => (
-                        <Button
-                          className=" btn btn-success"
-                          //   onClick={() => history.push("/app/report/payoutadd")}
-                        >
-                          Add
-                        </Button>
-                      )}
-                    />
-                  </Col>
-                </Row>
-                <CardBody>
-                  {this.state.rowData === null ? null : (
-                    <div className="ag-theme-material w-100 my-2 ag-grid-table">
-                      <div className="d-flex flex-wrap justify-content-between align-items-center">
-                        <div className="mb-1">
-                          <UncontrolledDropdown className="p-1 ag-dropdown">
-                            <DropdownToggle tag="div">
-                              {this.gridApi
-                                ? this.state.currenPageSize
-                                : "" * this.state.getPageSize -
-                                  (this.state.getPageSize - 1)}{" "}
-                              -{" "}
-                              {this.state.rowData.length -
-                                this.state.currenPageSize *
-                                  this.state.getPageSize >
-                              0
-                                ? this.state.currenPageSize *
-                                  this.state.getPageSize
-                                : this.state.rowData.length}{" "}
-                              of {this.state.rowData.length}
-                              <ChevronDown className="ml-50" size={15} />
-                            </DropdownToggle>
-                            <DropdownMenu right>
-                              <DropdownItem
-                                tag="div"
-                                onClick={() => this.filterSize(20)}
-                              >
-                                20
-                              </DropdownItem>
-                              <DropdownItem
-                                tag="div"
-                                onClick={() => this.filterSize(50)}
-                              >
-                                50
-                              </DropdownItem>
-                              <DropdownItem
-                                tag="div"
-                                onClick={() => this.filterSize(100)}
-                              >
-                                100
-                              </DropdownItem>
-                              <DropdownItem
-                                tag="div"
-                                onClick={() => this.filterSize(134)}
-                              >
-                                134
-                              </DropdownItem>
-                            </DropdownMenu>
-                          </UncontrolledDropdown>
-                        </div>
-                        <div className="d-flex flex-wrap justify-content-between mb-1">
-                          <div className="table-input mr-1">
-                            <Input
-                              placeholder="search..."
-                              onChange={(e) =>
-                                this.updateSearchQuery(e.target.value)
-                              }
-                              value={this.state.value}
-                            />
-                          </div>
-                          <div className="export-btn">
-                            <Button.Ripple
-                              color="primary"
-                              onClick={() => this.gridApi.exportDataAsCsv()}
+        <Row className="app-user-list">
+          <Col sm="12"></Col>
+          <Col sm="12">
+            <Card>
+              <Row className="m-2">
+                <Col>
+                  <CustomInput
+                    type="select"
+                    name="select_sslmedia"
+                    onChange={(e) => this.handleSelect(e)}
+                  >
+                    <option>Select Option</option>
+                    <option>Facebook</option>
+                    <option>Twitter</option>
+                    <option>Instagram</option>
+                    <option>Youtube</option>
+                  </CustomInput>
+                </Col>
+                <Col>
+                  <Input
+                    required
+                    type="text"
+                    name="url"
+                    placeholder="Enter social link"
+                    value={this.state.url}
+                    onChange={this.changeHandler}
+                  />
+                </Col>
+                <Col>
+                  <Route
+                    render={() => (
+                      <Button
+                        className=" btn btn-success"
+                        onClick={this.handleAdd}
+                      >
+                        Add
+                      </Button>
+                    )}
+                  />
+                </Col>
+              </Row>
+              <CardBody>
+                {this.state.rowData === null ? null : (
+                  <div className="ag-theme-material w-100 my-2 ag-grid-table">
+                    <div className="d-flex flex-wrap justify-content-between align-items-center">
+                      <div className="mb-1">
+                        <UncontrolledDropdown className="p-1 ag-dropdown">
+                          <DropdownToggle tag="div">
+                            {this.gridApi
+                              ? this.state.currenPageSize
+                              : "" * this.state.getPageSize -
+                                (this.state.getPageSize - 1)}{" "}
+                            -{" "}
+                            {this.state.rowData.length -
+                              this.state.currenPageSize *
+                                this.state.getPageSize >
+                            0
+                              ? this.state.currenPageSize *
+                                this.state.getPageSize
+                              : this.state.rowData.length}{" "}
+                            of {this.state.rowData.length}
+                            <ChevronDown className="ml-50" size={15} />
+                          </DropdownToggle>
+                          <DropdownMenu right>
+                            <DropdownItem
+                              tag="div"
+                              onClick={() => this.filterSize(20)}
                             >
-                              Export as CSV
-                            </Button.Ripple>
-                          </div>
+                              20
+                            </DropdownItem>
+                            <DropdownItem
+                              tag="div"
+                              onClick={() => this.filterSize(50)}
+                            >
+                              50
+                            </DropdownItem>
+                            <DropdownItem
+                              tag="div"
+                              onClick={() => this.filterSize(100)}
+                            >
+                              100
+                            </DropdownItem>
+                            <DropdownItem
+                              tag="div"
+                              onClick={() => this.filterSize(134)}
+                            >
+                              134
+                            </DropdownItem>
+                          </DropdownMenu>
+                        </UncontrolledDropdown>
+                      </div>
+                      <div className="d-flex flex-wrap justify-content-between mb-1">
+                        <div className="table-input mr-1">
+                          <Input
+                            placeholder="search..."
+                            onChange={(e) =>
+                              this.updateSearchQuery(e.target.value)
+                            }
+                            value={this.state.value}
+                          />
+                        </div>
+                        <div className="export-btn">
+                          <Button.Ripple
+                            color="primary"
+                            onClick={() => this.gridApi.exportDataAsCsv()}
+                          >
+                            Export as CSV
+                          </Button.Ripple>
                         </div>
                       </div>
-                      <ContextLayout.Consumer>
-                        {(context) => (
-                          <AgGridReact
-                            gridOptions={{}}
-                            rowSelection="multiple"
-                            defaultColDef={defaultColDef}
-                            columnDefs={columnDefs}
-                            rowData={rowData}
-                            onGridReady={this.onGridReady}
-                            colResizeDefault={"shift"}
-                            animateRows={true}
-                            floatingFilter={false}
-                            pagination={true}
-                            paginationPageSize={this.state.paginationPageSize}
-                            pivotPanelShow="always"
-                            enableRtl={context.state.direction === "rtl"}
-                          />
-                        )}
-                      </ContextLayout.Consumer>
                     </div>
-                  )}
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-      )
+                    <ContextLayout.Consumer>
+                      {(context) => (
+                        <AgGridReact
+                          gridOptions={{}}
+                          rowSelection="multiple"
+                          defaultColDef={defaultColDef}
+                          columnDefs={columnDefs}
+                          rowData={rowData}
+                          onGridReady={this.onGridReady}
+                          colResizeDefault={"shift"}
+                          animateRows={true}
+                          floatingFilter={false}
+                          pagination={true}
+                          paginationPageSize={this.state.paginationPageSize}
+                          pivotPanelShow="always"
+                          enableRtl={context.state.direction === "rtl"}
+                        />
+                      )}
+                    </ContextLayout.Consumer>
+                  </div>
+                )}
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+      </div>
     );
   }
 }
