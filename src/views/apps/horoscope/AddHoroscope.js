@@ -70,7 +70,7 @@ export class AddHoroscope extends Component {
       .post("/admin/addCategory", this.state)
 
       .then((response) => {
-        console.log(response.data);
+        // console.log(response.data);
 
         swal("Success!", "Submitted SuccessFull!", "success");
         this.props.history.push("/app/horoscope/horoscopecategory");

@@ -486,7 +486,14 @@ const navigationConfig = [
     permissions: ["admin", "editor"],
     navLink: "/app/media/socialmedia",
   },
-
+  {
+    id: "otherpages",
+    title: "Other Pages",
+    type: "item",
+    icon: <Icon.DollarSign size={20} />,
+    permissions: ["admin", "editor"],
+    navLink: "/app/otherpages/otherpage",
+  },
   {
     id: "transaction",
     title: "All Transaction",

@@ -86,6 +86,7 @@ class BannerPoojaList extends React.Component {
         field: "sortorder",
         width: 200,
         cellRendererFramework: (params) => {
+          console.log(params.data);
           return (
             <div className="actions cursor-pointer">
               {/* <Route
@@ -144,14 +145,14 @@ class BannerPoojaList extends React.Component {
 
   async runthisfunction(id) {
     console.log(id);
-    await axiosConfig.get(`/admin/admin_dlt_event/${id}`).then(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    axiosConfig
+      .get(`/admin/del_PoojaBanner/${id}`)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   onGridReady = (params) => {
     this.gridApi = params.api;

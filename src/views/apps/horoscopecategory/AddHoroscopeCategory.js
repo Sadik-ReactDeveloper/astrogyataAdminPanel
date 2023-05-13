@@ -25,6 +25,7 @@ export class AddHoroscopeCategory extends Component {
     super(props);
     this.state = {
       title: "",
+      path: "",
       desc: "",
       editorState: EditorState.createEmpty(),
     };
@@ -123,7 +124,17 @@ export class AddHoroscopeCategory extends Component {
                     onChange={this.changeHandler}
                   ></Input>
                 </Col>
-
+                <Col lg="6" md="6" sm="12" className="mb-2">
+                  <Label>Path</Label>
+                  <Input
+                    required
+                    type="text"
+                    name="path"
+                    placeholder="Enter Path"
+                    value={this.state.path}
+                    onChange={this.changeHandler}
+                  ></Input>
+                </Col>
                 <Col lg="12" md="12" sm="12" className="mb-2">
                   <Label> Description</Label>
 

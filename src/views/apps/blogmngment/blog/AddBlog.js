@@ -43,6 +43,7 @@ export default class AddBlog extends Component {
       editorState,
       desc: draftToHtml(convertToRaw(editorState.getCurrentContent())),
     });
+    console.log("descccc", this.state.desc);
   };
   uploadImageCallBack = (file) => {
     return new Promise((resolve, reject) => {
@@ -62,11 +63,7 @@ export default class AddBlog extends Component {
       });
     });
   };
-  onChangeHandler = (event) => {
-    this.setState({ selectedFile: event.target.files[0] });
-    this.setState({ selectedName: event.target.files[0].name });
-    console.log(event.target.files[0]);
-  };
+
   onChangeHandler = (event) => {
     this.setState({ selectedFile: event.target.files });
     this.setState({ selectedName: event.target.files.name });
@@ -83,7 +80,7 @@ export default class AddBlog extends Component {
     axiosConfig
       .get("/admin/all_blog_category")
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         this.setState({
           categoryB: response.data.data,
         });
@@ -101,16 +98,17 @@ export default class AddBlog extends Component {
     data.append("blogcategory", this.state.blogcategory);
 
     for (const file of this.state.selectedFile) {
+      console.log("file", file);
       if (this.state.selectedFile !== null) {
         data.append("blogImg", file, file.name);
       }
     }
-    for (var value of data.values()) {
-      console.log(value);
-    }
-    for (var key of data.keys()) {
-      console.log(key);
-    }
+    // for (var value of data.values()) {
+    //   console.log("23value", value);
+    // }
+    // for (var key of data.keys()) {
+    //   console.log("key", key);
+    // }
     axiosConfig
       .post(`admin/addBlog`, data)
 
@@ -184,6 +182,7 @@ export default class AddBlog extends Component {
 
                   <CustomInput
                     type="file"
+                    name="image"
                     // multiple
                     onChange={this.onChangeHandler}
                   />

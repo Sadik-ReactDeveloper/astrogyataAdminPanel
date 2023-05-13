@@ -35,10 +35,11 @@ const PayoutAdd = lazy(() => import("./views/apps/report/PayputAdd"));
 const PayoutEdit = lazy(() => import("./views/apps/report/PayoutEdit"));
 // socialMedia
 const SocialMedia = lazy(() => import("./views/apps/socialmedia/SocialMedia"));
+
 const EditSocialMedia = lazy(() =>
   import("./views/apps/socialmedia/EditSocialMedia")
 );
-
+const OtherPage = lazy(() => import("./views/apps/otherpages/OtherPage"));
 // youtube Video
 const YouTubeVideoList = lazy(() =>
   import("./views/apps/youtube/YouTubeVideoList")
@@ -1064,6 +1065,7 @@ class AppRouter extends React.Component {
               path="/app/media/editsocialmedia/:id"
               component={EditSocialMedia}
             />
+            <AppRoute path="/app/otherpages/otherpage" component={OtherPage} />
             <AppRoute path="/app/report/payoutadd" component={PayoutAdd} />
             <AppRoute path="/app/report/payoutedit" component={PayoutEdit} />
             {/* youtube */}

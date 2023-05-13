@@ -124,7 +124,7 @@ class HoroscopeCategoryList extends React.Component {
     ],
   };
   async componentDidMount() {
-    await axiosConfig.get("/admin/getallCategory").then((response) => {
+    await axiosConfig.get(`/admin/getallCategory`).then((response) => {
       let rowData = response.data.data;
       console.log(rowData);
       this.setState({ rowData });
@@ -132,10 +132,10 @@ class HoroscopeCategoryList extends React.Component {
   }
 
   async runthisfunction(id) {
-    console.log(id);
-    await axios.get(`/admin/dltCategory/${id}`).then(
+    console.log("id", id);
+    await axiosConfig.get(`/admin/dltCategory/${id}`).then(
       (response) => {
-        console.log(response);
+        console.log("vsvf", response);
       },
       (error) => {
         console.log(error);
