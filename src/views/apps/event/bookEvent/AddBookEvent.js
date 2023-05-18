@@ -244,7 +244,7 @@ const AddBookEvent = () => {
                     console.log("id", pooja_type);
                   }}
                 >
-                  <option>select Event</option>
+                  <option>select Puja</option>
                   {pujaN?.map((allPuja) => (
                     <option value={allPuja?._id} key={allPuja?._id}>
                       {allPuja?.pooja_name}
@@ -340,7 +340,7 @@ const AddBookEvent = () => {
                   name="select"
                   onChange={(e) => setmode_ofpuja(e.target.value)}
                 >
-                  <option>select Event</option>
+                  <option>select Puja</option>
                   <option>offline</option>
                   <option>online</option>
                 </CustomInput>

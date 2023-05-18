@@ -67,8 +67,9 @@ class BookEventList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              {params.data.poojaimg.map((i) => (
+              {params.data.poojaimg?.map((i, index) => (
                 <img
+                  key={index}
                   className=" rounded-circle  mr-3"
                   src={i}
                   alt="user avatar"

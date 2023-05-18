@@ -21,6 +21,7 @@ const productDetail = lazy(() =>
   import("./views/apps/ecommerce/detail/Detail")
 );
 const shop = lazy(() => import("./views/apps/ecommerce/shop/Shop"));
+// const lll = lazy(() => import("./views/apps/"));
 
 const UserList = lazy(() => import("./views/apps/user/UserList"));
 const AddUser = lazy(() => import("./views/apps/user/AddUser"));
@@ -47,7 +48,7 @@ const YouTubeVideoList = lazy(() =>
 const AddYouTubeVideo = lazy(() =>
   import("./views/apps/youtube/AddYouTubeVideo")
 );
-
+// const LiveStreaming = lazy(() => import("./views/apps/"));
 // event
 const BannerPoojaList = lazy(() =>
   import("./views/apps/event/bennerPooja/BannerPoojaList")
