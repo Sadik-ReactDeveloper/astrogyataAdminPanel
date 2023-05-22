@@ -32,13 +32,12 @@ const AddBookEvent = () => {
     },
   ]);
   const [inputList, setInputlist] = useState([]);
-  const [time_slots, setInputFields] = useState([
+  const [time_slots, setTime_slots] = useState([
     {
       start_Time: "",
       End_Time: "",
     },
   ]);
-  const [timelist, setTimelist] = useState([]);
   const [pooja_price, setpooja_price] = useState("");
   const [city, setCity] = useState("");
   const [duration, setDuration] = useState("");
@@ -54,13 +53,12 @@ const AddBookEvent = () => {
     setProduct([
       ...product,
       {
-        // image: null,
         name: "",
         price: "",
         description: "",
+        // image: null,
       },
     ]);
-    console.log(product);
   };
   const handleInputListRemove = (index) => {
     const listData = [...product];
@@ -70,39 +68,30 @@ const AddBookEvent = () => {
   const handleProductChange = (index, e) => {
     const { name, value } = e.target;
     const view = [...product];
+    console.log("View", view);
     view[index][name] = value;
-    setInputlist(view);
+    setProduct(view);
   };
 
-  // const handleProductImage = (index, e) => {
-  //   const { name, files } = e.target;
-  //   const view = [...product];
-  //   view[index][name] = files[0];
-  //   setProduct(view);
-
-  //   console.log("Product", product[0].image);
-  // };
   const addInputField = () => {
-    setInputFields([
+    setTime_slots([
       ...time_slots,
       {
         start_Time: "",
         End_Time: "",
       },
     ]);
-    console.log(time_slots);
   };
   const removeInputFields = (index) => {
     const rows = [...time_slots];
     rows.splice(index, 1);
-    setInputFields(rows);
+    setTime_slots(rows);
   };
   const handleChange = (index, evnt) => {
     const { name, value } = evnt.target;
     const list = [...time_slots];
     list[index][name] = value;
-    setInputFields(list);
-    console.log(time_slots);
+    setTime_slots(list);
   };
 
   const uploadImageCallBack = (file) => {
@@ -124,19 +113,12 @@ const AddBookEvent = () => {
     });
   };
   const changeHandler = (e) => {
-    setTimelist({ [e.target.name]: e.target.value });
-    setInputlist({ [e.target.name]: e.target.value });
+    setTime_slots({ [e.target.name]: e.target.value });
+    setProduct({ [e.target.name]: e.target.value });
   };
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
     setDesc(draftToHtml(convertToRaw(editorState.getCurrentContent())));
-
-    //  onEditorStateChange = (editorState) => {
-    //    this.setState({
-    //      editorState,
-    //      desc: draftToHtml(convertToRaw(editorState.getCurrentContent())),
-    //    });
-    //  };
   };
 
   useEffect(() => {
@@ -152,6 +134,11 @@ const AddBookEvent = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    console.log("product", product);
+    let start = time_slots.map((item) => item.start_Time);
+    let end = time_slots.map((item) => item.End_Time);
+
+    const time = start.concat(end);
     const data = new FormData();
     data.append("pooja_type", pooja_type);
     data.append("pooja_price", pooja_price);
@@ -159,8 +146,19 @@ const AddBookEvent = () => {
     data.append("desc", desc);
     data.append("duration", duration);
     data.append("mode_ofpuja", mode_ofpuja);
-    data.append("time_slots", JSON.stringify(time_slots));
-    data.append("product", JSON.stringify(product));
+    data.append("time_slots", time);
+    // data.append("product", JSON.stringify(product));
+    if (product) {
+      for (let index = 0; index < product.length; index++) {
+        data.append(`product[${[index]}][name]`, product[index].name);
+        data.append(`product[${[index]}][price]`, product[index].price);
+        data.append(
+          `product[${[index]}][description]`,
+          product[index].description
+        );
+      }
+    }
+
     data.append("benefits", benefits);
     data.append("fullfill_location", fullfill_location);
 
@@ -191,7 +189,7 @@ const AddBookEvent = () => {
         swal("Success!", "Submitted SuccessFull!", "success");
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response.data);
       });
   };
   return (
@@ -278,8 +276,7 @@ const AddBookEvent = () => {
                   }}
                 ></Input>
               </Col>
-              {time_slots.map((data, index) => {
-                const { fullName, emailAddress, salary } = data;
+              {time_slots?.map((data, index) => {
                 return (
                   <>
                     <Col key={index} lg="4" md="6" sm="12" className="mb-2">
@@ -287,7 +284,7 @@ const AddBookEvent = () => {
                       <Input
                         type="time"
                         onChange={(evnt) => handleChange(index, evnt)}
-                        value={time_slots.start_Time}
+                        value={data.start_Time}
                         name="start_Time"
                         className="form-control"
                         placeholder="start_Time"
@@ -299,7 +296,7 @@ const AddBookEvent = () => {
                       <Input
                         type="time"
                         onChange={(evnt) => handleChange(index, evnt)}
-                        value={time_slots.End_Time}
+                        value={data.End_Time}
                         name="End_Time"
                         className="form-control"
                         placeholder="End_Time"
@@ -409,7 +406,6 @@ const AddBookEvent = () => {
                 <h2 className="">Add Product </h2>
               </Col>
               {product?.map((data, index) => {
-                const { name, image, price, description } = data;
                 return (
                   <>
                     {/* <Col lg="4" className="mb-2">

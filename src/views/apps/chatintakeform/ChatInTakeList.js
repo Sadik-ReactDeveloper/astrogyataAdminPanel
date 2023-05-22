@@ -348,9 +348,9 @@ class ChatInTakeList extends React.Component {
       (
         <div>
           <Breadcrumbs
-            breadCrumbTitle="Conversion In Take List"
+            breadCrumbTitle="Conversation Intake List"
             breadCrumbParent="Home"
-            breadCrumbActive=" Conversion In Take List "
+            breadCrumbActive=" Conversation Intake List"
           />
 
           <Row className="app-user-list">
@@ -360,7 +360,7 @@ class ChatInTakeList extends React.Component {
                 <Row className="m-2">
                   <Col>
                     <h1 sm="6" className="float-left">
-                      Conversion in Take List
+                      Conversation Intake List
                     </h1>
                   </Col>
                   <Col>
