@@ -68,7 +68,6 @@ const AddBookEvent = () => {
   const handleProductChange = (index, e) => {
     const { name, value } = e.target;
     const view = [...product];
-    console.log("View", view);
     view[index][name] = value;
     setProduct(view);
   };
@@ -112,10 +111,10 @@ const AddBookEvent = () => {
       });
     });
   };
-  const changeHandler = (e) => {
-    setTime_slots({ [e.target.name]: e.target.value });
-    setProduct({ [e.target.name]: e.target.value });
-  };
+  // const changeHandler = (e) => {
+  //   setTime_slots({ [e.target.name]: e.target.value });
+  //   setProduct({ [e.target.name]: e.target.value });
+  // };
   const onEditorStateChange = (editorState) => {
     setEditorState(editorState);
     setDesc(draftToHtml(convertToRaw(editorState.getCurrentContent())));
@@ -134,7 +133,6 @@ const AddBookEvent = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("product", product);
     let start = time_slots.map((item) => item.start_Time);
     let end = time_slots.map((item) => item.End_Time);
 
@@ -185,8 +183,9 @@ const AddBookEvent = () => {
     axiosConfig
       .post(`/admin/admin_Addevent`, data)
       .then((response) => {
-        console.log("SDK", response.data);
+        console.log("sdkkk", response);
         swal("Success!", "Submitted SuccessFull!", "success");
+        this.props.history.push("app/event/bookEvent/bookEventList");
       })
       .catch((error) => {
         console.log(error.response.data);
@@ -236,11 +235,8 @@ const AddBookEvent = () => {
                   required
                   type="select"
                   name="pooja_type"
-                  value={pooja_type}
-                  onChange={(e) => {
-                    setPooja_type(e.target.value);
-                    console.log("id", pooja_type);
-                  }}
+                  // value={pooja_type}
+                  onChange={(e) => setPooja_type(e.target.value)}
                 >
                   <option>select Puja</option>
                   {pujaN?.map((allPuja) => (
@@ -359,7 +355,7 @@ const AddBookEvent = () => {
                       required
                       type="text"
                       name="fullfill_location"
-                      placeholder="Enter Current Location"
+                      placeholder="Enter  Location"
                       value={fullfill_location}
                       onChange={(e) => {
                         setFullfill_location(e.target.value);

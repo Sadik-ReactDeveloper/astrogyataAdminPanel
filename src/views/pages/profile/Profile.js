@@ -13,10 +13,9 @@ import "../../../assets/scss/pages/users-profile.scss";
 import CheckBoxesVuexy from "../../../components/@vuexy/checkbox/CheckboxesVuexy";
 import { Check } from "react-feather";
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
-import axios from "axios";
+// import axios from "axios";
 import swal from "sweetalert";
 import axiosConfig from "../../../axiosConfig";
-// import { Route } from "react-router-dom";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -43,8 +42,9 @@ class Profile extends React.Component {
 
   componentDidMount() {
     // let { id } = this.props.match.params;
+    const adminId = localStorage.getItem("userId");
     axiosConfig
-      .get(`/admin/viewoneadmin/632d768e9b3a6f64695e1141`)
+      .get(`/admin/viewoneadmin/${adminId}`)
       .then((response) => {
         //console.log(response.data);
         console.log(response);

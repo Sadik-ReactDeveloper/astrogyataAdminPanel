@@ -123,21 +123,8 @@ class BookEventList extends React.Component {
       },
 
       {
-        headerName: "Location  ",
+        headerName: "Full Fill Location  ",
         field: "location",
-        filter: true,
-        width: 150,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.location}</span>
-            </div>
-          );
-        },
-      },
-      {
-        headerName: "Current Location  ",
-        field: "fullfill_location",
         filter: true,
         width: 150,
         cellRendererFramework: (params) => {
@@ -148,7 +135,6 @@ class BookEventList extends React.Component {
           );
         },
       },
-
       {
         headerName: "Benefits  ",
         field: "benefits",
@@ -164,7 +150,7 @@ class BookEventList extends React.Component {
       },
 
       {
-        headerName: "Duration  ",
+        headerName: "Duration",
         field: "duration",
         filter: true,
         width: 150,
@@ -198,11 +184,14 @@ class BookEventList extends React.Component {
         cellRendererFramework: (params) => {
           return params.data.liveStreaming === true ? (
             <div className="badge badge-pill badge-success">
-              <span>{"Available"}</span>
+              <span>Available</span>
             </div>
           ) : (
-            <div className="badge badge-pill badge-warning">
-              <span>{"Unavailable"}</span>
+            <div
+              className="badge badge-pill "
+              style={{ backgroundColor: "#ffcc01" }}
+            >
+              <span>Unavailable</span>
             </div>
           );
         },
