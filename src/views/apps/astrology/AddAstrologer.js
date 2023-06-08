@@ -19,6 +19,12 @@ class AddAstrologer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      name: "",
+      mobile: "",
+      experience: "",
+      expert: "",
+      language: "",
+      age: "",
       dealerN: [],
     };
   }
@@ -89,7 +95,7 @@ class AddAstrologer extends React.Component {
                   <Label>Name</Label>
                   <Input
                     type="text"
-
+                    onChange={this.changeHandler}
                     placeholder="Enter Astrologer Name"
                   />
                 </Col>
@@ -97,9 +103,9 @@ class AddAstrologer extends React.Component {
                   <Label>Mobile</Label>
                   <Input
                     type="text"
-                    // name="desc"
-                    // value={this.state.desc}
-                    // onChange={this.changeHandler}
+                    name="mobile"
+                    value={this.state.mobile}
+                    onChange={this.changeHandler}
                     // rows="3"
                     placeholder="Enter Mobile No."
                   />
@@ -108,20 +114,20 @@ class AddAstrologer extends React.Component {
                   <Label>Experience</Label>
                   <Input
                     type="text"
-                    // name="desc"
-                    // value={this.state.desc}
-                    // onChange={this.changeHandler}
+                    name="experience"
+                    value={this.state.experience}
+                    onChange={this.changeHandler}
                     // rows="3"
-                    placeholder="Enter Astrologer Name"
+                    placeholder="Experience"
                   />
                 </Col>
                 <Col lg="6" md="6" sm="6" className="mb-2">
                   <Label>Age</Label>
                   <Input
                     type="text"
-                    // name="desc"
-                    // value={this.state.desc}
-                    // onChange={this.changeHandler}
+                    name="age"
+                    value={this.state.age}
+                    onChange={this.changeHandler}
                     // rows="3"
                     placeholder="Enter Age"
                   />
@@ -130,9 +136,9 @@ class AddAstrologer extends React.Component {
                   <Label>Language</Label>
                   <Input
                     type="text"
-                    // name="desc"
-                    // value={this.state.desc}
-                    // onChange={this.changeHandler}
+                    name="language"
+                    value={this.state.language}
+                    onChange={this.changeHandler}
                     // rows="3"
                     placeholder="Enter Astrologer Name"
                   />

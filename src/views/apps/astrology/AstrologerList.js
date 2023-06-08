@@ -216,7 +216,7 @@ class AstrologerList extends React.Component {
       {
         headerName: "Action",
         field: "sortorder",
-        width: 100,
+        width: 150,
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
@@ -280,7 +280,6 @@ class AstrologerList extends React.Component {
       console.log(rowData);
       this.setState({ rowData });
     });
-   
   }
 
   async runthisfunction(id) {

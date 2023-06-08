@@ -36,10 +36,8 @@ const NavbarUser = () => {
     async function getNotifications() {
       try {
         //axiosConfig.get(`/dlt_startup/${id}`)
-        let userId = localStorage.getItem("userId");
-        const data = await axiosConfig.get(
-          `/admin/viewoneadmin/632d768e9b3a6f64695e1141`
-        );
+        let adminId = localStorage.getItem("adminId");
+        const data = await axiosConfig.get(`/admin/viewoneadmin/${adminId}`);
         // /admin/viewoneadmin/${userId}
         // console.log(data.data.data);
         setAdminimg(data.data.data);

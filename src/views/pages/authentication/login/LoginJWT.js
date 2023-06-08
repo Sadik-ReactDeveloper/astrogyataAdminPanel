@@ -1,28 +1,26 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { CardBody, FormGroup, Form, Input, Button, Label } from 'reactstrap'
-import Checkbox from '../../../../components/@vuexy/checkbox/CheckboxesVuexy'
-import { Mail, Lock, Check } from 'react-feather'
-import { loginWithJWT } from '../../../../redux/actions/auth/loginActions'
-import { connect } from 'react-redux'
-import axios from 'axios'
-import { Route } from 'react-router-dom'
-import swal from 'sweetalert'
-import { Token } from 'prismjs'
-import axiosConfig from '../../../../axiosConfig'
+import React from "react";
+import { Link } from "react-router-dom";
+import { CardBody, FormGroup, Form, Input, Button, Label } from "reactstrap";
+import Checkbox from "../../../../components/@vuexy/checkbox/CheckboxesVuexy";
+import { Mail, Lock, Check } from "react-feather";
+import { loginWithJWT } from "../../../../redux/actions/auth/loginActions";
+import { connect } from "react-redux";
+import { Route } from "react-router-dom";
+import swal from "sweetalert";
+import axiosConfig from "../../../../axiosConfig";
 class LoginJWT extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
       // token: "",
-    }
+    };
   }
   handlechange = (e) => {
-    e.preventDefault()
-    this.setState({ [e.target.name]: e.target.value })
-  }
+    e.preventDefault();
+    this.setState({ [e.target.name]: e.target.value });
+  };
 
   // checkHandler = (e) => {
   //   e.preventDefault();
@@ -68,33 +66,32 @@ class LoginJWT extends React.Component {
   // };
 
   handleLogin = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     axiosConfig
-      .post('admin/adminlogin', this.state)
+      .post("admin/adminlogin", this.state)
       .then((response) => {
-        console.log(response.data)
-
+        console.log(response.data.token);
+        localStorage.setItem("adminId", response.data.data._id);
         if (response.data.status === true) {
-          this.setState({ ad_token: response.data.token })
-          swal(response.data.msg)
-          localStorage.setItem('ad-token', response.data.token)
-          localStorage.setItem('userId', response.data.data._id)
-          localStorage.setItem('astroId', response.data.data._id)
-          window.location.replace('/#/')
+          this.setState({ ad_token: response.data.token });
+          swal(response.data.msg);
+          localStorage.setItem("ad-token", response.data.token);
+
+          window.location.replace("/#/");
         } else if (response.data.status === 204) {
-          swal(response.data.msg)
+          swal(response.data.msg);
         }
       })
 
       .catch((error) => {
-        console.log(error.response)
+        console.log(error.response);
         swal(
-          'error!',
-          'Invalied! Please enter valied Email. or Password',
-          'error',
-        )
-      })
-  }
+          "error!",
+          "Invalied! Please enter valied Email. or Password",
+          "error"
+        );
+      });
+  };
   render() {
     return (
       <React.Fragment>
@@ -153,12 +150,12 @@ class LoginJWT extends React.Component {
           </Form>
         </CardBody>
       </React.Fragment>
-    )
+    );
   }
 }
 const mapStateToProps = (state) => {
   return {
     values: state.auth.login,
-  }
-}
-export default connect(mapStateToProps, { loginWithJWT })(LoginJWT)
+  };
+};
+export default connect(mapStateToProps, { loginWithJWT })(LoginJWT);

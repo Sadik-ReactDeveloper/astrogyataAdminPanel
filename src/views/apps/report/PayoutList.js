@@ -11,8 +11,8 @@ import {
   DropdownItem,
   DropdownToggle,
 } from "reactstrap";
-// import axiosConfig from "../../../axiosConfig";
-import axios from "axios";
+import axiosConfig from "../../../axiosConfig";
+// import axios from "axios";
 import { ContextLayout } from "../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
 import { Eye, Edit, Trash2, ChevronDown } from "react-feather";
@@ -96,7 +96,7 @@ class PayoutList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.mobile}</span>
+              <span>{params.data?.payout_amt}</span>
             </div>
           );
         },
@@ -194,26 +194,22 @@ class PayoutList extends React.Component {
   async componentDidMount() {
     let { id } = this.props.match.params;
 
-    await axios
-      .get(`http://3.108.185.7:4000/user/view_onecust/${id}`)
-      .then((response) => {
-        let rowData = response.data.data;
-        console.log(rowData);
-        this.setState({ rowData });
-      });
+    await axiosConfig.get(`/user/PayoutList`).then((response) => {
+      let rowData = response.data.data;
+      console.log(rowData);
+      this.setState({ rowData });
+    });
 
-    await axios
-      .get("http://3.108.185.7:4000/admin/allcustomer")
-      .then((response) => {
-        let rowData = response.data.data;
-        console.log(rowData);
-        this.setState({ rowData });
-      });
+    await axiosConfig.get(`/admin/allcustomer`).then((response) => {
+      let rowData = response.data.data;
+      console.log(rowData);
+      this.setState({ rowData });
+    });
   }
 
   async runthisfunction(id) {
     console.log(id);
-    await axios.get(`http://3.108.185.7:4000/admin/delcustomer/${id}`).then(
+    await axiosConfig.get(`/admin/delcustomer/${id}`).then(
       (response) => {
         console.log(response);
       },

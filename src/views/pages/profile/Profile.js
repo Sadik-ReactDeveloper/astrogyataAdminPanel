@@ -13,10 +13,9 @@ import "../../../assets/scss/pages/users-profile.scss";
 import CheckBoxesVuexy from "../../../components/@vuexy/checkbox/CheckboxesVuexy";
 import { Check } from "react-feather";
 import Breadcrumbs from "../../../components/@vuexy/breadCrumbs/BreadCrumb";
-import axios from "axios";
+
 import swal from "sweetalert";
 import axiosConfig from "../../../axiosConfig";
-// import { Route } from "react-router-dom";
 
 class Profile extends React.Component {
   constructor(props) {
@@ -43,11 +42,12 @@ class Profile extends React.Component {
 
   componentDidMount() {
     // let { id } = this.props.match.params;
+    let adminId = localStorage.getItem("adminId");
     axiosConfig
-      .get(`/admin/viewoneadmin/632d768e9b3a6f64695e1141`)
+      .get(`/admin/viewoneadmin/${adminId}`)
       .then((response) => {
         //console.log(response.data);
-        console.log(response);
+        console.log("???????", response.data);
         this.setState({
           data: response.data.data,
           name: response.data.data.name,
@@ -79,16 +79,10 @@ class Profile extends React.Component {
       data.append("adminimg", this.state.selectedFile, this.state.selectedName);
     }
 
-    for (var value of data.values()) {
-      console.log(value);
-    }
-
-    for (var key of data.keys()) {
-      console.log(key);
-    }
     // let { id } = this.props.match.params;
+    let adminId = localStorage.getItem("adminId");
     axiosConfig
-      .post(`/admin/editprofile/6446527a8437bad5123c5cf0`, data, {
+      .post(`/admin/editprofile/${adminId}`, data, {
         headers: {
           "ad-token": localStorage.getItem("ad-token"),
         },
@@ -129,11 +123,11 @@ class Profile extends React.Component {
                       <span className="lst-3">{this.state.data.name}</span>
                     </li>
                     <li className="lst-2">
-                      Mobile:{" "}
+                      Mobile:
                       <span className="lst-3">{this.state.data.mobile}</span>
                     </li>
                     <li className="lst-2">
-                      Email:{" "}
+                      Email:
                       <span className="lst-3">{this.state.data.email}</span>
                     </li>
                   </ul>
@@ -175,6 +169,7 @@ class Profile extends React.Component {
                           />
                           <Label>Mobile No.</Label>
                           <Input
+                            disabled
                             type="number"
                             name="mobile"
                             placeholder="Mobile No."

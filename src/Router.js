@@ -21,7 +21,6 @@ const productDetail = lazy(() =>
   import("./views/apps/ecommerce/detail/Detail")
 );
 const shop = lazy(() => import("./views/apps/ecommerce/shop/Shop"));
-// const lll = lazy(() => import("./views/apps/"));
 
 const UserList = lazy(() => import("./views/apps/user/UserList"));
 const AddUser = lazy(() => import("./views/apps/user/AddUser"));
@@ -783,7 +782,7 @@ class AppRouter extends React.Component {
               component={CompleteCall}
             />
             <AppRoute
-              path="/app/callmanagement/callgreject"
+              path="/app/callmanagement/callreject"
               component={CallReject}
             />
             {/* coupons */}

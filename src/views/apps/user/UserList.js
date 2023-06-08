@@ -14,7 +14,7 @@ import {
 import axiosConfig from "../../../axiosConfig";
 import { ContextLayout } from "../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
-import { Trash2, ChevronDown } from "react-feather";
+import { Trash2, ChevronDown, Edit, Eye } from "react-feather";
 import "../../../assets/scss/plugins/tables/_agGridStyleOverride.scss";
 import "../../../assets/scss/pages/users.scss";
 import { Route } from "react-router-dom";
@@ -154,7 +154,7 @@ class UserList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="actions cursor-pointer">
-              {/* <Route
+              <Route
                 render={({ history }) => (
                   <Eye
                     className="mr-50"
@@ -165,7 +165,7 @@ class UserList extends React.Component {
                     }
                   />
                 )}
-              /> */}
+              />
               {/* <Route
                 render={({ history }) => (
                   <Edit

@@ -20,7 +20,7 @@ import { AgGridReact } from "ag-grid-react";
 import { Route } from "react-router-dom";
 import axios from "axios";
 //import classnames from "classnames";
-// import axiosConfig from "../../../axiosConfig";
+import axiosConfig from "../../../axiosConfig";
 
 class RechargeReport extends React.Component {
   state = {
@@ -140,26 +140,22 @@ class RechargeReport extends React.Component {
   async componentDidMount() {
     let { id } = this.props.match.params;
 
-    await axios
-      .get(`http://3.108.185.7:4000/user/view_onecust/${id}`)
-      .then((response) => {
-        let rowData = response.data.data;
-        console.log(rowData);
-        this.setState({ rowData });
-      });
+    await axiosConfig.get(`/user/view_onecust/${id}`).then((response) => {
+      let rowData = response.data.data;
+      console.log(rowData);
+      this.setState({ rowData });
+    });
 
-    await axios
-      .get("http://3.108.185.7:4000/admin/allcustomer")
-      .then((response) => {
-        let rowData = response.data.data;
-        console.log(rowData);
-        this.setState({ rowData });
-      });
+    await axiosConfig.get("/admin/allcustomer").then((response) => {
+      let rowData = response.data.data;
+      console.log(rowData);
+      this.setState({ rowData });
+    });
   }
 
   async runthisfunction(id) {
     console.log(id);
-    await axios.get(`http://3.108.185.7:4000/admin/delcustomer/${id}`).then(
+    await axiosConfig.get(`/admin/delcustomer/${id}`).then(
       (response) => {
         console.log(response);
       },

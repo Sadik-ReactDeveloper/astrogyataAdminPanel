@@ -33,15 +33,7 @@ class PayoutAdd extends React.Component {
     e.preventDefault();
 
     axiosConfig
-      .post(
-        "/admin/addabout",
-        this.state
-        // {
-        //   headers: {
-        //     "auth-adtoken": localStorage.getItem("auth-adtoken"),
-        //   },
-        // }
-      )
+      .post("/admin/addabout", this.state)
       .then((response) => {
         console.log(response);
         // swal("Success!", "Submitted SuccessFull!", "success");

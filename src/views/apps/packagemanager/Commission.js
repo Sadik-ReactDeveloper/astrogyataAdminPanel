@@ -39,9 +39,6 @@ class Commission extends React.Component {
         field: "node.rowIndex + 1",
         width: 100,
         filter: true,
-        // checkboxSelection: true,
-        // headerCheckboxSelectionFilteredOnly: true,
-        // headerCheckboxSelection: true,
       },
 
       {
@@ -80,7 +77,7 @@ class Commission extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data.product?.productname}</span>
+              <span>{params.data?.product}</span>
             </div>
           );
         },

@@ -95,7 +95,7 @@ class AllOrderList extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data?.product.product.productname}</span>
+              <span>{params.data?.product}</span>
             </div>
           );
         },
@@ -253,6 +253,7 @@ class AllOrderList extends React.Component {
     //   });
 
     axiosConfig.get("/admin/admin_product_Orderslist").then((response) => {
+      console.log("sds", response.data.data);
       this.setState({ rowData: response.data.data });
     });
   }

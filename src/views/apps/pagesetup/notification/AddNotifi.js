@@ -54,8 +54,7 @@ export default class AddNotifi extends Component {
       .post("admin/add_notification", this.state)
 
       .then((response) => {
-        console.log(response.data);
-
+        console.log(response.data.data);
         swal("Success!", "Submitted SuccessFull!", "success");
         this.props.history.push("/app/pagesetup/notification/notifiList");
       })
