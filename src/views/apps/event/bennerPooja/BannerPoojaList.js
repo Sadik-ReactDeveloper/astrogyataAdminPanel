@@ -49,7 +49,7 @@ class BannerPoojaList extends React.Component {
         headerName: "Title",
         field: "title",
         filter: true,
-        width: 200,
+        width: 330,
         cellRendererFramework: (params) => {
           return (
             <div>
@@ -62,7 +62,7 @@ class BannerPoojaList extends React.Component {
         headerName: "Image",
         field: "img",
         filter: false,
-        width: 120,
+        width: 250,
         setColumnVisible: false,
         cellRendererFramework: (params) => {
           return (
@@ -84,7 +84,7 @@ class BannerPoojaList extends React.Component {
       {
         headerName: "Action",
         field: "sortorder",
-        width: 200,
+        width: 250,
         cellRendererFramework: (params) => {
           console.log(params.data);
           return (
@@ -182,9 +182,9 @@ class BannerPoojaList extends React.Component {
       (
         <div>
           <Breadcrumbs
-            breadCrumbTitle="Puja Type"
+            breadCrumbTitle="BannerPooja"
             breadCrumbParent="Home"
-            breadCrumbActive="Puja Type List"
+            breadCrumbActive="BannerPooja List"
           />
 
           <Row className="app-user-list">
@@ -194,7 +194,7 @@ class BannerPoojaList extends React.Component {
                 <Row className="m-2">
                   <Col>
                     <h1 sm="6" className="float-left">
-                      Puja Type List
+                      BannerPooja List
                     </h1>
                   </Col>
                   <Col>

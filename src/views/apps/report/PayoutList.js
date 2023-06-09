@@ -261,7 +261,7 @@ class PayoutList extends React.Component {
                       Payout List
                     </h1>
                   </Col>
-                  <Col>
+                  {/* <Col>
                     <Route
                       render={({ history }) => (
                         <Button
@@ -272,7 +272,7 @@ class PayoutList extends React.Component {
                         </Button>
                       )}
                     />
-                  </Col>
+                  </Col> */}
                 </Row>
                 <CardBody>
                   {this.state.rowData === null ? null : (

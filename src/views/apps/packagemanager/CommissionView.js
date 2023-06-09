@@ -75,11 +75,11 @@ class CommissionView extends React.Component {
               <Row className="ml-4">
                 <Col md="4" sm="12" className="mb-4">
                   <h4>Category Name</h4>
-                  <h6 className=""> {this.state.data.comision_name}</h6>
+                  <h6 className=""> {this.state.data?.comision_name}</h6>
                 </Col>
                 <Col md="4" sm="12" className="mb-4">
                   <h4>Commission Name</h4>
-                  <h6 className=""> {this.state.data.comision_name}</h6>
+                  <h6 className=""> {this.state.data?.comision_name}</h6>
                 </Col>
                 <Col md="4" sm="12" className="mb-4">
                   <h4>Product Name</h4>
@@ -89,11 +89,11 @@ class CommissionView extends React.Component {
               <Row className="ml-4">
                 <Col md="6" sm="12" className="mb-4">
                   <h4>Commission Rate</h4>
-                  <h6 className=""> {this.state.data.comision_rate}</h6>
+                  <h6 className=""> {this.state.data?.comision_rate}</h6>
                 </Col>
                 <Col md="6" sm="12" className="mb-4">
                   <h4>Status</h4>
-                  <h6 className=""> {this.state.data.status}</h6>
+                  <h6 className=""> {this.state.data?.status}</h6>
                 </Col>
               </Row>
             </CardBody>

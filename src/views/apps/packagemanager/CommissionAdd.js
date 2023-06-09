@@ -42,7 +42,7 @@ class AddCommission extends React.Component {
         console.log(error);
       });
   }
-  componentDidUpdate() {}
+
   changeHandler1 = (e) => {
     this.setState({ status: e.target.value });
   };

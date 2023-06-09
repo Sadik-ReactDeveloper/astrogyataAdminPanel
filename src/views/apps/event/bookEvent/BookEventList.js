@@ -308,9 +308,9 @@ class BookEventList extends React.Component {
       (
         <div>
           <Breadcrumbs
-            breadCrumbTitle="Puja Type"
+            breadCrumbTitle="Pooja Type"
             breadCrumbParent="Home"
-            breadCrumbActive="Puja Type List"
+            breadCrumbActive="Pooja Type List"
           />
 
           <Row className="app-user-list">
@@ -320,7 +320,7 @@ class BookEventList extends React.Component {
                 <Row className="m-2">
                   <Col>
                     <h1 sm="6" className="float-left">
-                      Puja Type List
+                      Pooja Type List
                     </h1>
                   </Col>
                   <Col>

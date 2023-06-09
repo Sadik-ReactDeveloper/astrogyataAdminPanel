@@ -42,20 +42,6 @@ class Commission extends React.Component {
       },
 
       {
-        headerName: "Category Name",
-        field: "category",
-        filter: true,
-        width: 180,
-        cellRendererFramework: (params) => {
-          return (
-            <div>
-              <span>{params.data.product?.category?.name}</span>
-            </div>
-          );
-        },
-      },
-
-      {
         headerName: "Commission Name",
         field: "comision_name",
         filter: true,
@@ -63,7 +49,7 @@ class Commission extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.comision_name}</span>
+              <span>{params.data?.comision_name}</span>
             </div>
           );
         },
@@ -73,11 +59,11 @@ class Commission extends React.Component {
         headerName: "Product Name",
         field: "productname",
         filter: true,
-        width: 120,
+        width: 200,
         cellRendererFramework: (params) => {
           return (
             <div className="d-flex align-items-center cursor-pointer">
-              <span>{params.data?.product}</span>
+              <span>{params.data?.product?.productname}</span>
             </div>
           );
         },
@@ -91,7 +77,7 @@ class Commission extends React.Component {
         cellRendererFramework: (params) => {
           return (
             <div>
-              <span>{params.data.comision_rate}</span>
+              <span>{params.data?.comision_rate}</span>
             </div>
           );
         },
@@ -105,11 +91,11 @@ class Commission extends React.Component {
         cellRendererFramework: (params) => {
           return params.value === "Active" ? (
             <div className="badge badge-pill badge-success">
-              {params.data.status}
+              {params.data?.status}
             </div>
           ) : params.value === "Inactive" ? (
             <div className="badge badge-pill btn-primary">
-              {params.data.status}
+              {params.data?.status}
             </div>
           ) : null;
         },
@@ -130,7 +116,7 @@ class Commission extends React.Component {
                     color="green"
                     onClick={() =>
                       history.push(
-                        `/app/packagemanager/commissionview/${params.data._id}`
+                        `/app/packagemanager/commissionview/${params.data?._id}`
                       )
                     }
                   />
@@ -144,7 +130,7 @@ class Commission extends React.Component {
                     color="blue"
                     onClick={() =>
                       history.push(
-                        `/app/packagemanager/commissionedit/${params.data._id}`
+                        `/app/packagemanager/commissionedit/${params.data?._id}`
                       )
                     }
                   />

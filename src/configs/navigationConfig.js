@@ -1,4 +1,5 @@
 import React from "react";
+import { IntlProvider, FormattedMessage, useIntl } from "react-intl";
 import * as Icon from "react-feather";
 const navigationConfig = [
   {
@@ -17,7 +18,7 @@ const navigationConfig = [
 
   {
     id: "user",
-    title: "User Management ",
+    title: "User Management",
     type: "collapse",
     icon: <Icon.Users size={20} />,
     children: [
