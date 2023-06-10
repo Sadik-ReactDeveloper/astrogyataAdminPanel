@@ -6,7 +6,7 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 import "prismjs/themes/prism-tomorrow.css";
 
 const App = (props) => {
-  return <Router locale="en" />;
+  return <Router />;
 };
 
 export default App;
