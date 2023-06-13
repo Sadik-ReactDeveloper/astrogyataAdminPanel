@@ -12,7 +12,6 @@ import {
   DropdownToggle,
 } from "reactstrap";
 import axiosConfig from "../../../axiosConfig";
-// import axios from "axios";
 import { ContextLayout } from "../../../utility/context/Layout";
 import { AgGridReact } from "ag-grid-react";
 import { Edit, Trash2, ChevronDown } from "react-feather";

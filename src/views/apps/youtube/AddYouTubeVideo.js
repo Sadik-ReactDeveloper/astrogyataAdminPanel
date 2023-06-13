@@ -34,7 +34,7 @@ export class AddYouTubeVideo extends Component {
       .post("/admin/video", this.state)
 
       .then((response) => {
-        console.log(response.data);
+        console.log(response.data.data);
 
         swal("Success!", "Submitted SuccessFull!", "success");
         this.props.history.push("/app/youtube/youTubeVideoList");
@@ -55,7 +55,7 @@ export class AddYouTubeVideo extends Component {
           <Row className="m-2">
             <Col>
               <h1 col-sm-6 className="float-left">
-                Add Event
+                Add YouTube Video
               </h1>
             </Col>
             <Col>
